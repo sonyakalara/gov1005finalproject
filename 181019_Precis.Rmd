@@ -1,0 +1,16 @@
+---
+title: "181019_Precis"
+author: "Sonya Kalara"
+date: "10/19/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(devtools)
+library(tidyverse)
+library(readxl)
+
+df <- read_csv("Freshman_Eth_Statistics.csv")
+
+View(df)
+```
