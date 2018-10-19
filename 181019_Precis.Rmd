@@ -9,8 +9,15 @@ output: html_document
 library(devtools)
 library(tidyverse)
 library(readxl)
+library(knitr)
 
-df <- read_csv("Freshman_Eth_Statistics.csv")
+df <- read_csv("ethnicity_data.csv")
+```
 
-View(df)
+Precis: 
+```{r}
+precis <- "I have included a copy of a .csv that enumerates the admissions data for UC Berkeley, divided up by ethnicity and race. I would love to analyze how these statistics have changed with the enactment of law 209 that eliminated race-consciousness in admissions. After analyzing these trends I would like to see if there are other programs that Berkeley has to encourage diversity even if the admissions process is race-blind." 
+
+print(precis)
+summary(df)
 ```
