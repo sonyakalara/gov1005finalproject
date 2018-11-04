@@ -1,0 +1,12 @@
+name: MyFirstApp
+title: MyFirstApp
+username:
+account: sonyakalara
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 552025
+bundleId: 1681438
+url: https://sonyakalara.shinyapps.io/MyFirstApp/
+when: 1541364466.55961
+asMultiple: FALSE
+asStatic: FALSE

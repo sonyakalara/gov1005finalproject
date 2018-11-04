@@ -6,15 +6,16 @@ output: html_document
 ---
 
 ```{r include = FALSE, echo = FALSE}
-library(plyr)
+
 library(shiny)
 library(tidyverse)
+library(plyr)
 
-
-df <- read_csv("ethnicity_data.csv")
+df <- read_csv("./data/ethnicity_data.csv")
 ```
 
 ```{r echo = FALSE}
+
 df_clean <- df %>% 
   rename(c("Ethnicity" = "ethnicity", 
            "Category" = "category", 
@@ -37,13 +38,14 @@ new <-
 new$mean <- new$x 
 new$x <- NULL
 
-View(df_clean)
-
 new <- new %>% 
   mutate(mean = formatC(mean, format = "f", digits = 2)) %>% 
-  write_rds("rdsObject.rds")
+  write_rds("./MyFirstApp/rdsObject.rds")
 
 graph <- new %>% 
-  ggplot(aes(x = year, y = perc_stripped, color = ethnicity)) + geom_point()
+  ggplot(aes(x = year, y = data, color = ethnicity)) + geom_line() +
+      ylab("Percent / Total") +
+      xlab("Year") +
+      ggtitle("Enrollment by Race, Percentage vs. Total")
 
 ```
