@@ -1,0 +1,49 @@
+---
+title: "101103_DataWithShiny"
+author: "Sonya Kalara"
+date: "11/4/2018"
+output: html_document
+---
+
+```{r include = FALSE, echo = FALSE}
+library(plyr)
+library(shiny)
+library(tidyverse)
+
+
+df <- read_csv("ethnicity_data.csv")
+```
+
+```{r echo = FALSE}
+df_clean <- df %>% 
+  rename(c("Ethnicity" = "ethnicity", 
+           "Category" = "category", 
+           "Academic Yr" = "year", 
+           "Perc FR" = "percent", 
+           "FilteredCountFR" = "total")) %>% 
+  mutate(perc_stripped = as.numeric(sub("%", "", percent))) %>%
+  mutate(ethnicity = as.factor(ethnicity)) 
+
+df_clean <- subset(df_clean, ethnicity !="All")
+df_clean <- subset(df_clean, category == "Admits")
+
+
+avg <-  
+  aggregate(df_clean$perc_stripped, by=list(category = df_clean$category, ethnicity=df_clean$ethnicity), FUN=mean) 
+
+new <- 
+  left_join(df_clean, avg)
+
+new$mean <- new$x 
+new$x <- NULL
+
+View(df_clean)
+
+new <- new %>% 
+  mutate(mean = formatC(mean, format = "f", digits = 2)) %>% 
+  write_rds("rdsObject.rds")
+
+graph <- new %>% 
+  ggplot(aes(x = year, y = perc_stripped, color = ethnicity)) + geom_point()
+
+```
